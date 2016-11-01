@@ -1,17 +1,18 @@
 import React from 'react';
 import expect from 'expect';
 import TestUtils from 'react-addons-test-utils';
-import ProgressBars from '../components/ProgressBars';
+import ProgressBar from '../components/ProgressBar';
 
-function setup(barOptions) {
+function setup(key,percent,color) {
   let props = {
-    barOptions: barOptions
+    key: key,
+    percent: percent,
+    color: color
   };
 
   let renderer = TestUtils.createRenderer();
-  renderer.render(<ProgressBars {...props}/>);
+  renderer.render(<ProgressBar {...props}/>);
   let output = renderer.getRenderOutput();
-
   return {
     props,
     output,
@@ -19,14 +20,18 @@ function setup(barOptions) {
   };
 }
 
-describe('ProgressBars via React Test Utils', () => {
-  it('renders two div', () => {
-    let _barOptions = [{percent: 67, barValue: 'p1', color: '#3FC7FA'},{percent: 105, barValue: 'p2', color: '#FF0000'},{percent: 97, barValue: 'p3', color: '#3FC7FA'}];
-    const { output } = setup(_barOptions);
+describe('ProgressBar via React Test Utils', () => {
+  it('renders two div with className m', () => {
+    const { output } = setup('bar1','67','#3FC7FA');
     expect(output.type).toBe('div');
     let [ div ] = output.props.children;
     expect(div.type).toBe('div');
-    let div1 = output.props.children[0];
-     expect(div1.props.className).toBe('myProgress');
+  });
+
+  it('div with className "myBar" and background with "#3FC7FA"', () => {
+    const { output } = setup('bar1','67','#3FC7FA');
+    let [ div ] = output.props.children;
+    expect(div.props.className).toBe('myBar');
+    expect(div.props.style.background).toBe('#3FC7FA');
   });
 });
