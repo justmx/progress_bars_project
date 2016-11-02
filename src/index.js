@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import App from './components/App';
 import createStore from './redux';
 import StartupActions from './redux/StartupRedux';
-import './styles/styles.css';
+ import './styles/styles.scss';
 
 const store = createStore(); //Can pass initialState parrameter here
 store.dispatch(StartupActions.startup());
